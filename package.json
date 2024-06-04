@@ -4,7 +4,7 @@
   "description": "��#\u0000 \u0000A\u0000P\u0000I\u0000-\u0000R\u0000e\u0000s\u0000t\u0000f\u0000u\u0000l\u0000-\u0000d\u0000e\u0000-\u0000V\u0000e\u0000n\u0000d\u0000a\u0000s\u0000\r\u0000 \u0000",
   "main": "index.js",
   "scripts": {
-    "dev": "ts-node-dev --inspect --transpile-only --ignore-watch node_modules src/server.ts",
+    "dev": "ts-node-dev -r tsconfig-paths/register --inspect --transpile-only --ignore-watch node_modules src/shared/http/server.ts",
     "lint": "eslint . --ext .ts",
     "lint-fix": "eslint . --ext .ts --fix"
   },

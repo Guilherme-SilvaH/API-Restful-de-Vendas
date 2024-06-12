@@ -10,12 +10,12 @@ interface IRequest {
 
 
 class ShowProductService{
-    public async execute({id}: IRequest): Promise<Product | undefined>{
+    public async execute({id}: IRequest): Promise<Product>{
         const productsRepository = getCustomRepository(ProductRepository);  //Utilizamos o getCustomRepository quando ja temos um repositorio customizado, se nao, usamos o getRepository
 
-        const product = productsRepository.findOne(id);
+        const product = await productsRepository.findOne(id);
 
-
+        //verificars se ja existe o produco com o name passado
         if(!product){
           throw new AppError('Product not found')
         }

@@ -1,15 +1,6 @@
 import { getCustomRepository } from "typeorm";
 import { ProductRepository } from "../typeorm/repositories/ProductsRepository";
-import AppError from "@shared/errors/AppError";
 import Product from "../typeorm/entities/Product";
-
-
-interface IRequest {
-    name: string;
-    price: number;
-    quantity: number;
-}
-
 
 class ListroductService{
     public async execute(): Promise<Product[]>{

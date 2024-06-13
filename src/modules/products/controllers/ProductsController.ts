@@ -6,8 +6,6 @@ import UpdateProductService from "../services/UpdateProductService";
 import DeleteProductService from "../services/DeleteProductsService";
 
 export default class ProductsController {
-
-
     //controller para listar os produtos
     public async index(request: Request, response: Response): Promise<Response>{
 

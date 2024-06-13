@@ -7,9 +7,20 @@ const productsRouter = Router()//instancia para pegar os metodos dos ROUTER
 const productsController = new ProductsController();
 
 productsRouter.get('/', productsController.index);
-productsRouter.get('/:id', productsController.show);
+
+productsRouter.get(
+  '/:id',
+  celebrate({
+    [Segments.PARAMS]:{
+      id: Joi.string().uuid().required(),
+    }
+  }),
+  productsController.show);
+
 productsRouter.post('/', productsController.create);
+
 productsRouter.put('/:id', productsController.update);
+
 productsRouter.delete('/:id', productsController.delete);
 
 

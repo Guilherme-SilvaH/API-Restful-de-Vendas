@@ -1,6 +1,6 @@
 import 'reflect-metadata';
 import express, { NextFunction, Request, Response } from 'express';
-import 'express-async-errors'
+import 'express-async-errors'//cuida dos erros de uma promessa
 import cors from 'cors';
 import routes from './routes';
 import AppError from '../errors/AppError';
@@ -8,7 +8,7 @@ import '@shared/typeorm';
 
 const app = express();
 
-app.use(cors());
+app.use(cors());//cors é usado para configurar e permitir navegadores de fazer requiciçoes na API, nessa caso deixamos para todo mundo o acesso
 app.use(express.json());
 
 app.use(routes);

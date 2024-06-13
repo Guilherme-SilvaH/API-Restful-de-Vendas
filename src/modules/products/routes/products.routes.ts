@@ -1,5 +1,7 @@
 import { Router } from "express"
+import { celebrate, Joi, Segments } from 'celebrate'
 import ProductsController from "../controllers/ProductsController"
+
 
 const productsRouter = Router()//instancia para pegar os metodos dos ROUTER
 const productsController = new ProductsController();

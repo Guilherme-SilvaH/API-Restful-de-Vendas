@@ -13,11 +13,20 @@ productsRouter.get(
   celebrate({
     [Segments.PARAMS]:{
       id: Joi.string().uuid().required(),
-    }
+    },
   }),
   productsController.show);
 
-productsRouter.post('/', productsController.create);
+productsRouter.post(
+  '/',
+  celebrate({
+    [Segments.BODY]: {
+      name: Joi.string().required(),
+      price: Joi.number().precision(2).required(),
+      quantity: Joi.number().required()
+    }
+  }),
+  productsController.create);
 
 productsRouter.put('/:id', productsController.update);
 

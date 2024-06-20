@@ -18,7 +18,7 @@ class ShowUserService{
 
         //verificars se ja existe o produco com o name passado
         if(!user){
-          throw new AppError('Product not found')
+          throw new AppError('User not found')
         }
 
         return user;

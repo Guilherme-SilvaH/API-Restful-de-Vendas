@@ -19,13 +19,13 @@ class UpdateUserService{
 
         //verificars e o id do produto esta cadastrado em nosso DB
         if(!user){
-          throw new AppError('Product not found')
+          throw new AppError('User not found')
         }
 
         const userExists = await userRepositorys.findByName(name);
         //verificars se ja existe o produco com o name passado
         if(userExists && name != user.name){
-            throw new AppError('There is already one product with this name',)
+            throw new AppError('There is already one User with this name',)
         }
         //se passar de todas as verificaçoes, atualiza os dados
         user.name = name;

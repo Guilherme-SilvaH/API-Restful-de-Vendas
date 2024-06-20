@@ -15,7 +15,7 @@ class DeleteUserService{
         const user = await usersRepository.findOne(id);
         //verificars se ja existe o produco com o name passado
         if(!user){
-          throw new AppError('Product not found')
+          throw new AppError('User not found')
         }
         await usersRepository.remove(user);
     }

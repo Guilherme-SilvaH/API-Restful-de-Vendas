@@ -1,6 +1,6 @@
 import {MigrationInterface, QueryRunner, Table} from "typeorm";
 
-export class CreteUsers1718907168154 implements MigrationInterface {
+export class CreteUsers1718913735319 implements MigrationInterface {
 
     public async up(queryRunner: QueryRunner): Promise<void> {
       await queryRunner.createTable(
@@ -52,7 +52,7 @@ export class CreteUsers1718907168154 implements MigrationInterface {
     }
 
     public async down(queryRunner: QueryRunner): Promise<void> {
-      await queryRunner.dropTable('users')
+        await queryRunner.dropTable('users')
     }
 
 }

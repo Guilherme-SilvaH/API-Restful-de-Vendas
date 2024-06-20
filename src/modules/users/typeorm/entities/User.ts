@@ -1,16 +1,13 @@
 import { Column, CreateDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 
 
-
 @Entity('users')
 class User {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-
   @Column()
   name: string
-
 
   @Column()
   email: string
@@ -21,12 +18,11 @@ class User {
   @Column()
   avatar: string
 
-
   @CreateDateColumn()
   created_at: Date
 
   @UpdateDateColumn()
-  updtaed_at: Date
+  updated_at: Date
 }
 
 

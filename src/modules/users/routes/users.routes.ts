@@ -11,7 +11,6 @@ usersRouter.get('/', usersController.index);
 
 usersRouter.post(
   '/',
-  //celabrete seria o middleware
   celebrate({
     [Segments.BODY]: {
       name: Joi.string().required(),
@@ -19,9 +18,17 @@ usersRouter.post(
       password: Joi.string().required()
     }
   }),
+  async (req, res, next) => {
+    try {
+      console.log('Request Body:', req.body);
+      await usersController.create(req, res);
+    } catch (error) {
+      console.error('Error:', error);
+      next(error);
+    }
+  }
+);
 
-  usersController.create
-)
 
 export default usersRouter
 

@@ -1,30 +1,26 @@
-import CreateUserService from "../services/CreateUserService";
-import ListUserService from "../services/ListUserService";
-import { Request, Response } from "express";
-
-export default class UsersController{
+import { Request, Response } from 'express';
+import { getRepository } from 'typeorm';
+import User from '../typeorm/entities/User';
 
 
-  public async index(request: Request, response: Response): Promise<Response>{
-    const listUser = new ListUserService();
+class UsersController {
 
-    const users = await listUser.execute();
+  public async index(req: Request, res: Response): Promise<Response> {
+    const usersRepository = getRepository(User);
+    const users = await usersRepository.find();
+    return res.json(users);
+  }
 
-    return response.json(users);
-  };
+  public async create(req: Request, res: Response): Promise<Response> {
+    const { name, email, password } = req.body;
 
+    const usersRepository = getRepository(User);
+    const user = usersRepository.create({ name, email, password });
 
-  public async create(request: Request, response: Response): Promise<Response>{
-    const {name, email, password } = request.body
+    await usersRepository.save(user);
 
-    const creatUser = new CreateUserService()
-
-    const user = await creatUser.execute({
-      name,
-      email,
-      password
-    });
-
-    return response.json(user)
+    return res.status(201).json(user);
   }
 }
+
+export default UsersController;

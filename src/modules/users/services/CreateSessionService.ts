@@ -4,6 +4,7 @@ import UsersRepository from "../typeorm/repositories/UsersRepository";
 import User from "../typeorm/entities/User";
 import { compare } from "bcryptjs";
 import { sign } from "jsonwebtoken";
+import authConfig from '@config/auth'
 
 
 
@@ -38,9 +39,9 @@ class CreateSessionService{
       }
 
 
-      const token = sign({}, '799a45aba8f4a08738d124d17e058d03', {
+      const token = sign({}, authConfig.jwt.secrete, {
         subject: user.id,
-        expiresIn: '1d'
+        expiresIn: authConfig.jwt.expiresIn
       })
 
 

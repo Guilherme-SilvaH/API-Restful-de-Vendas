@@ -4,7 +4,7 @@ import { verify } from "jsonwebtoken";
 import authConfig from '@config/auth'
 
 
-interface TokerPayload {
+interface ITokerPayload {
   iat: number;
   exp: number;
   sub: string
@@ -30,7 +30,7 @@ export default function isAuthenticated(
 
     console.log(decodedToken);
 
-    const { sub } = decodedToken as TokerPayload;
+    const { sub } = decodedToken as ITokerPayload;
 
 
 

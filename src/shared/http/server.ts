@@ -6,11 +6,13 @@ import cors from 'cors';
 import routes from './routes';
 import AppError from '../errors/AppError';
 import '@shared/typeorm';
+import uploadConfig from '@config/upload';
 
 const app = express();
 
 app.use(cors());//cors é usado para configurar e permitir navegadores de fazer requiciçoes na API, nessa caso deixamos para todo mundo o acesso
 app.use(express.json());
+app.use('/file', express.static(uploadConfig.directory));
 app.use(routes);
 app.use(errors())
 

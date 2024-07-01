@@ -1,12 +1,13 @@
 import { Router  } from "express";
 import { celebrate, Joi, Segments } from "celebrate";
-import SessionsController from "../controllers/SessionsController";
 import ForgotPasswordController from "../controllers/ForgotPasswordController";
+import ResetPasswordController from "../controllers/ResetPasswordController";
 
 
 
 const passwordRouter = Router()
-const ForgotPassworController = new ForgotPasswordController
+const ForgotPassworController = new ForgotPasswordController();
+const resetPasswordController = new ResetPasswordController()
 
 
 passwordRouter.post(
@@ -28,5 +29,27 @@ passwordRouter.post(
 );
 
 
-export default passwordRouter
+passwordRouter.post(
+  '/reset',
+  celebrate({
+    [Segments.BODY]: {
+      token: Joi.string().uuid().required(),
+      password: Joi.string().required(),
+      password_confirmation: Joi.string().required().valid(Joi.ref('password'))
+    }
+  }),
+  async (req, res, next) => {
+    try {
+      console.log('Request Body:', req.body);
+      await resetPasswordController.create(req, res);
+    } catch (error) {
+      console.error('Error:', error);
+      next(error);
+    }
+  }
+);
+
+export default passwordRouter;
+
+
 

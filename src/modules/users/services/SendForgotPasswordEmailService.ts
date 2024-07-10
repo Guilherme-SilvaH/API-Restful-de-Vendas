@@ -3,6 +3,7 @@ import AppError from "@shared/errors/AppError";
 import UsersRepository from "../typeorm/repositories/UsersRepository";
 import UsersTokensRepository from "../typeorm/repositories/UsersTokensRepository";
 import EtherealMail from "@config/mail/EtherealMail";
+import path from 'path'
 
 
 
@@ -24,6 +25,9 @@ class SendForgotPasswordEmailService{
 
       const {token} = await userTokenRepository.genarate(user.id);
 
+
+      const forgotPasswordTemplate = path.resolve(__dirname,'..', 'views', 'forgot_password.hbs')
+
       await EtherealMail.sendMail({
         to: {
           name: user.name,
@@ -31,10 +35,10 @@ class SendForgotPasswordEmailService{
         },
         subject: '[Api Vendas] Recuperação de Senha',
         templateData: {
-          template: `Olá {{name}}: {{token}}`,
+          file: forgotPasswordTemplate,
           variables: {
             name: user.name,
-            token,
+            link: `http://localhost:3000/reset_password?token${token}`,
         },
         }
       })

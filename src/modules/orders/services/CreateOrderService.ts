@@ -31,8 +31,52 @@ class CreateOrderService{
         };
 
         const existsProdutcs = await productsRepositorys.findAllByIds(products);
+
+
+        if (!existsProdutcs.length) {
+            throw new AppError('Could not find any products with the given IDS.',)
+        };
+
+        const existsProdutcsIds = existsProdutcs.map((product) => product.id);
+
+        const checkInexistentProducts = products.filter(
+            product => !existsProdutcsIds.includes(product.id),
+        );
+
+
+        if (checkInexistentProducts.length) {
+            throw new AppError(`Could not find product ${checkInexistentProducts[0].id}`)
+        };
         
-    }
+        const quantityAvailable = products.filter(
+            product => existsProdutcs.filter(
+                p => p.id === product.id
+            )[0].quantity < product.quantity,
+        );
+
+        if (quantityAvailable.length) {
+            throw new AppError(`The quantity ${quantityAvailable[0].quantity} is not available for ${quantityAvailable[0]. id}`)
+        };
+
+        const serializedProducts = products.map(
+            product => ({
+                product_id: product.id,
+                quantity: product.quantity,
+                price: existsProdutcs.filter(p => p.id === product.id)[0].price,
+            })
+        );
+
+        const order = await ordersRepository.createOrder({
+            customer: customerExists,
+            products: serializedProducts,
+        });
+
+
+        
+
+    };
+
+ 
 }
 
 export default CreateOrderService;

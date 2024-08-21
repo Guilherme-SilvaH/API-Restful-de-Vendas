@@ -72,7 +72,22 @@ class CreateOrderService{
         });
 
 
+        const {order_products } = order;
+
+        const updatedProductQuantity = order_products.map(
+            product => (
+                {
+                    id: product.product_id,
+                    quantity: existsProdutcs.filter(p => p.id === product.id)[0].quantity - product.quantity,
+                }
+            )
+        );
+
+        await productsRepositorys.save(updatedProductQuantity);
         
+        
+
+        return order
 
     };
 
